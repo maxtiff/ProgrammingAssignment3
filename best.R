@@ -2,6 +2,7 @@ best <- function(state, outcome) {
   ## alter case in user inputs for uniformity throughout program.
   outcome <- tolower(outcome)
   state <- toupper(state)
+  
   outcomeVect <- c("heart attack", "heart failure", "pneumonia")
   
   ## Read outcome data and create subset by mortality outcome for heart attack, heart failure and pneumonia.
@@ -32,8 +33,9 @@ best <- function(state, outcome) {
   
   ## Return hospital name in that state with lowest 30-day death
   ## rate. Any ties are handled via alphabetization.
-   stateHospitals <- completeHospitals[completeHospitals$state == state,]
-   head(stateHospitals)
+  stateHospitals <- completeHospitals[completeHospitals$state == state,]
 
+  
+  
 }
 
