@@ -1,5 +1,5 @@
 best <- function(state, outcome) {
-  ## alter case in user inputs for uniformity throughout program.
+  ## Alter case in user inputs for uniformity throughout program.
   outcome <- tolower(outcome)
   state <- toupper(state)
   
@@ -8,13 +8,14 @@ best <- function(state, outcome) {
   ## Read outcome data and create subset by mortality outcome for heart attack, heart failure and pneumonia.
   data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
   
+  ## Establish vectors for data frame.
   vect1 <- as.character(data[,2])
   vect2 <- as.character(data[,7])
   vect3 <- as.numeric(data[,11])
   vect4 <- as.numeric(data[,17])
   vect5 <- as.numeric(data[,23])
   
-  ## Create dataset of all hospitals
+  ## Create data frame of all hospitals
   allHospitals <- data.frame(hospital=vect1, state=vect2, heart.attack=vect3, heart.failure=vect4, pneumonia=vect5)
   
   ## Remove any rows with NA from the data frame.
@@ -28,7 +29,7 @@ best <- function(state, outcome) {
   }
   
   ## Return hospital name in that state with lowest 30-day death
-  ## rate. Any ties are handled via alphabetization.
+  ## rate for the selected ailment. Any ties are handled via alphabetization.
   stateHospitals <- completeHospitals[completeHospitals$state == state,]
   if (outcome == "heart attack") {
     stateHospitals <- subset(stateHospitals, select = c(hospital,state,heart.attack))
@@ -41,7 +42,7 @@ best <- function(state, outcome) {
     bestHospital <- stateHospitals[with(stateHospitals, order(pneumonia, hospital)), ]
   }
   
-  return(bestHospital[1,1])
+  return(as.character(bestHospital[1,1]))
   
 }
 
