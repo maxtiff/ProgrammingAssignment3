@@ -30,6 +30,7 @@ best <- function(state, outcome) {
   
   ## Return hospital name in that state with lowest 30-day death
   ## rate for the selected ailment. Any ties are handled via alphabetization.
+  ## Fix repetition.
   stateHospitals <- completeHospitals[completeHospitals$state == state,]
   if (outcome == "heart attack") {
     stateHospitals <- subset(stateHospitals, select = c(hospital,state,heart.attack))
