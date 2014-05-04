@@ -1,8 +1,14 @@
 rankall <- function(outcome, num = "best") {
-  ## Alter case in user inputs for uniformity throughout program.
+  ## Alter outcome in user inputs for uniformity throughout program.
   outcome <- tolower(outcome)
   
+  ## Create vector of valid outcomes to check against. 
   outcomes <- c("heart attack", "heart failure", "pneumonia")
+  
+  ## Check that outcome is valid
+  if (!(outcome %in% outcomes)) {
+    stop("Invalid outcome.")
+  }
   
   ## Read outcome data and create subset by mortality outcome for heart attack, heart failure and pneumonia.
   data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
@@ -14,19 +20,18 @@ rankall <- function(outcome, num = "best") {
   vect4 <- as.numeric(data[,17])
   vect5 <- as.numeric(data[,23])
   
+  ## Build vector of states to loop through.
+  states <- unique(sort(vect2))
+  
   ## Create data frame of all hospitals
   allHospitals <- data.frame(hospital=vect1, state=vect2, heart.attack=vect3, heart.failure=vect4, pneumonia=vect5)
   
   ## Remove any rows with NA from the data frame.
   completeHospitals <- allHospitals[complete.cases(allHospitals),]
   
-  ## Check that state and outcome are valid
-  if (!(outcome %in% outcomes)) {
-    stop("Invalid outcome.")
-  }
-  
   ## For each state, find the hospital of the given rank
   
   ## Return a data frame with the hospital names and the
   ## (abbreviated) state name
+
 }
