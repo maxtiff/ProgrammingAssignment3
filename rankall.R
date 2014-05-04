@@ -21,9 +21,7 @@ rankall <- function(outcome, num = "best") {
   completeHospitals <- allHospitals[complete.cases(allHospitals),]
   
   ## Check that state and outcome are valid
-  if (!(state %in% completeHospitals$state)) {
-    stop("Invalid state.")    
-  } else if (!(outcome %in% outcomes)) {
+  if (!(outcome %in% outcomes)) {
     stop("Invalid outcome.")
   }
   
