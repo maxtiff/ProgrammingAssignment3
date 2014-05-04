@@ -37,7 +37,7 @@ rankhospital <- function (state, outcome, num = "best") {
     bestHospital <- stateHospitals[with(stateHospitals, order(heart.attack, hospital)), ]
   } else if (outcome == "heart failure") {
     stateHospitals <- subset(stateHospitals, select = c(hospital,state,heart.failure))
-    bestHospital <- stateHospitals[with(stateHospitals, order(hear.failure, hospital)), ]
+    bestHospital <- stateHospitals[with(stateHospitals, order(heart.failure, hospital)), ]
   } else {
     stateHospitals <- subset(stateHospitals, select = c(hospital,state,pneumonia))
     bestHospital <- stateHospitals[with(stateHospitals, order(pneumonia, hospital)), ]
@@ -46,7 +46,7 @@ rankhospital <- function (state, outcome, num = "best") {
   if (num == "best") {
     return(as.character(bestHospital[1,1]))
   } else if (num == "worst") {
-    return(as.character(bestHospital[-1,1]))
+    return(as.character(bestHospital[nrow(bestHospital),1]))
   } else {
     return(as.character(bestHospital[num,1]))
   }
