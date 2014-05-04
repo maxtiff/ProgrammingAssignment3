@@ -22,21 +22,26 @@ best <- function(state, outcome) {
   
   ## Check that user inputs for state and outcome are valid.
   if (!(state %in% completeHospitals$state)) {
-    
-    stop("Invalid state.")
-    
+    stop("Invalid state.")    
   } else if (!(outcome %in% outcomes)) {
-    
     stop("Invalid outcome.")
-    
   }
   
   ## Return hospital name in that state with lowest 30-day death
   ## rate. Any ties are handled via alphabetization.
   stateHospitals <- completeHospitals[completeHospitals$state == state,]
-  stateHospitals <- subset(stateHospitals, select = c(hospital,state,pneumonia))
- 
-  head(stateHospitals)
+  if (outcome == "heart attack") {
+    stateHospitals <- subset(stateHospitals, select = c(hospital,state,heart.attack))
+    bestHospital <- stateHospitals[with(stateHospitals, order(heart.attack, hospital)), ]
+  } else if (outcome == "heart failure") {
+    stateHospitals <- subset(stateHospitals, select = c(hospital,state,heart.failure))
+    bestHospital <- stateHospitals[with(stateHospitals, order(hear.failure, hospital)), ]
+  } else {
+    stateHospitals <- subset(stateHospitals, select = c(hospital,state,pneumonia))
+    bestHospital <- stateHospitals[with(stateHospitals, order(pneumonia, hospital)), ]
+  }
+  
+  return(bestHospital[1,1])
   
 }
 
