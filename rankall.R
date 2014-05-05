@@ -57,8 +57,9 @@ rankall <- function(outcome, num = "best") {
     }
     df <- rbind(best,df)
     
+    
   }
   ## Return a data frame with the hospital names and the
   ## (abbreviated) state name
-  return(df)
+  print(df)
 }
