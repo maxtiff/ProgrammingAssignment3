@@ -21,13 +21,16 @@ rankall <- function(outcome, num = "best") {
   vect5 <- as.numeric(data[,23])
   
   ## Build vector of all states to loop through.
-  states <- unique(sort(vect2))
+  states <- unique(sort(vect2,decreasing=TRUE))
   
   ## Create data frame of all hospitals
   allHospitals <- data.frame(hospital=vect1, state=vect2, heart.attack=vect3, heart.failure=vect4, pneumonia=vect5)
   
   ## Remove any rows with NA from the data frame.
   completeHospitals <- allHospitals[complete.cases(allHospitals),]
+  
+  ## Vector for ranked hospital for outcome in each state.
+  df <- data.frame()
   
   ## For each state, find the hospital of the given rank
   for (state in states) {
@@ -46,14 +49,16 @@ rankall <- function(outcome, num = "best") {
     }
     
     if (num == "best") {
-      best <- as.character(bestHospital[1,1])
+      best <- bestHospital[1,c("hospital","state")]
     } else if (num == "worst") {
-      best <- as.character(bestHospital[nrow(bestHospital),1])
+      best <- bestHospital[nrow(bestHospital),c("hospital","state")]
     } else {
-      best <- as.character(bestHospital[num,1])
+      best <- bestHospital[num, c("hospital","state")]
     }
+    df <- rbind(best,df)
+    
   }
   ## Return a data frame with the hospital names and the
   ## (abbreviated) state name
-
+  return(df)
 }
